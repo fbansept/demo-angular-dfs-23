@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Article } from 'src/app/models/Article';
 
 @Component({
   selector: 'app-accueil',
@@ -6,9 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./accueil.component.scss'],
 })
 export class AccueilComponent {
-  listeArticle: any[] = [
-    { id: 1, title: 'Article 1 ', body: 'Contenu article 1' },
-    { id: 2, title: 'Article 2 ', body: 'Contenu article 2' },
-    { id: 3, title: 'Article 3 ', body: 'Contenu article 3' },
-  ];
+  listeArticle: Article[] = [];
+
+  constructor(private http: HttpClient) {
+    this.http
+      .get<Article[]>('https://jsonplaceholder.typicode.com/posts')
+      .subscribe((listeArticle) => (this.listeArticle = listeArticle));
+  }
 }
