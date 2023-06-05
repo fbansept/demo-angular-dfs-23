@@ -8,13 +8,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditionArticleComponent {
   formulaire: FormGroup = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.maxLength(10)]],
-    body: ['', [Validators.required, Validators.minLength(5)]]
+    title: ['', [Validators.required]],
+    body: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   constructor(private formBuilder: FormBuilder) {}
 
   onAjoutArticle() {
-    console.log('traitement');
+    if (this.formulaire.valid) {
+      console.log('traitement');
+    }
   }
 }
