@@ -11,8 +11,19 @@ export class AccueilComponent {
   listeArticle: Article[] = [];
 
   constructor(private http: HttpClient) {
+    this.raffraichir();
+  }
+
+  raffraichir() {
     this.http
       .get<Article[]>('http://localhost:3000/liste-articles')
       .subscribe((listeArticle) => (this.listeArticle = listeArticle));
+  }
+
+  onSupprimerArticle(idArticle: number) {
+    this.http.delete('http://localhost:3000/article/' + idArticle).subscribe({
+      next: (reponse) => this.raffraichir(),
+      error: (reponse) => console.log(reponse),
+    });
   }
 }

@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Article } from 'src/app/models/Article';
 
 @Component({
   selector: 'app-edition-article',
@@ -12,11 +15,49 @@ export class EditionArticleComponent {
     body: ['', [Validators.required, Validators.minLength(5)]],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  articleModifie?: Article;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe((parametres) => {
+      if (parametres['id'] !== undefined) {
+        this.http
+          .get<Article>('http://localhost:3000/article/' + parametres['id'])
+          .subscribe({
+            next: (article) => {
+              this.formulaire.patchValue(article);
+              this.articleModifie = article;
+            },
+            error: (reponse) => alert(reponse.error),
+          });
+      }
+    });
+  }
 
   onAjoutArticle() {
     if (this.formulaire.valid) {
-      console.log('traitement');
+      if (this.articleModifie) {
+        this.http
+          .put(
+            'http://localhost:3000/article/' + this.articleModifie.id,
+            this.formulaire.value
+          )
+          .subscribe({
+            next: (resultat) => this.router.navigateByUrl('/accueil'),
+            error: (reponse) => alert(reponse.error),
+          });
+      } else {
+        this.http
+          .post('http://localhost:3000/article', this.formulaire.value)
+          .subscribe({
+            next: (resultat) => this.router.navigateByUrl('/accueil'),
+            error: (reponse) => alert(reponse.error),
+          });
+      }
     }
   }
 }
