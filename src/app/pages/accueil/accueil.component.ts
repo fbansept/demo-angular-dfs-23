@@ -12,7 +12,7 @@ export class AccueilComponent {
 
   constructor(private http: HttpClient) {
     this.http
-      .get<Article[]>('https://jsonplaceholder.typicode.com/posts')
+      .get<Article[]>('http://localhost:3000/liste-articles')
       .subscribe((listeArticle) => (this.listeArticle = listeArticle));
   }
 }

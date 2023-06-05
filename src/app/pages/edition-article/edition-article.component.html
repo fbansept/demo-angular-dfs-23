@@ -1,0 +1,13 @@
+<form (ngSubmit)="onAjoutArticle()" [formGroup]="formulaire">
+  <mat-form-field>
+    <mat-label>Titre</mat-label>
+    <input matInput formControlName="title"/>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Contenu</mat-label>
+    <textarea matInput formControlName="body"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button type="submit">Ajouter l'article</button>
+</form>
