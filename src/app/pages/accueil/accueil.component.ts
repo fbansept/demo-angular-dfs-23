@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Article } from 'src/app/models/Article';
+import { Jwt } from 'src/app/models/Jwt';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
   selector: 'app-accueil',
@@ -9,9 +11,11 @@ import { Article } from 'src/app/models/Article';
 })
 export class AccueilComponent {
   listeArticle: Article[] = [];
+  jwt : Jwt | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthentificationService) {
     this.raffraichir();
+    this.auth.$jwt.subscribe(jwt => this.jwt = jwt)
   }
 
   raffraichir() {

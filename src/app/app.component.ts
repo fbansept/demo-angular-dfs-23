@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthentificationService } from './services/authentification.service';
+import { Jwt } from './models/Jwt';
 
 @Component({
   selector: 'app-root',
@@ -6,10 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title: string = 'demo-angular-dfs-23';
-  nombreClic: number = 0;
 
-  onClic(evenement: MouseEvent) {
-    this.nombreClic ++;
+  jwt: Jwt | null = null;
+
+  constructor(private auth: AuthentificationService){
+    this.auth.$jwt.subscribe((jwt) => this.jwt = jwt);
   }
+
 }

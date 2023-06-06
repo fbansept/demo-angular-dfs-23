@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
   selector: 'app-connexion',
@@ -13,13 +14,14 @@ export class ConnexionComponent {
     password: ['', [Validators.required]],
   });
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthentificationService
+    ) {}
 
   onConnexion() {
     if (this.formulaire.valid) {
-      this.http
-        .post('http://localhost:3000/login', this.formulaire.value)
-        .subscribe((reponse : any) => localStorage.setItem("jwt",reponse.token));
+       this.auth.login(this.formulaire.value)
     }
   }
 }
