@@ -17,6 +17,7 @@ export class EditionArticleComponent {
 
   articleModifie?: Article;
   fichierSelectionne: File | null = null;
+  imageSource: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +33,10 @@ export class EditionArticleComponent {
             next: (article) => {
               this.formulaire.patchValue(article);
               this.articleModifie = article;
+
+              if (article.nom_image) {
+                this.imageSource = 'http://localhost:3000/' + article.nom_image;
+              }
             },
             error: (reponse) => alert(reponse.error),
           });
@@ -40,6 +45,13 @@ export class EditionArticleComponent {
   }
 
   onFichierChange(event: any) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imageSource = e.target.result;
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+
     this.fichierSelectionne = event.target.files[0];
   }
 
