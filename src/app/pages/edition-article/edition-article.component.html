@@ -24,7 +24,10 @@
     </button>
 
     <span>
-      {{ fichierSelectionne?.name || "Aucun fichier selectionné" }}
+      {{
+        fichierSelectionne?.name ||
+          (articleModifie?.nom_image ? "" : "Aucun fichier selectionné")
+      }}
     </span>
 
     <img [src]="imageSource" />
