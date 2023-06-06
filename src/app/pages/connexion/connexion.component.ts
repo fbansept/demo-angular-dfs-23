@@ -19,7 +19,7 @@ export class ConnexionComponent {
     if (this.formulaire.valid) {
       this.http
         .post('http://localhost:3000/login', this.formulaire.value)
-        .subscribe((reponse) => console.log(reponse));
+        .subscribe((reponse : any) => localStorage.setItem("jwt",reponse.token));
     }
   }
 }
