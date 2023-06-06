@@ -19,11 +19,23 @@
             Accueil
           </a>
         </li>
-        <li *ngIf="jwt == null" class="nav-item">
+        <li *ngIf="jwt == null; else lienDeconnexion" class="nav-item">
           <a class="nav-link" routerLink="/connexion" routerLinkActive="active">
             Connexion
           </a>
         </li>
+
+        <ng-template #lienDeconnexion>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              style="cursor: pointer"
+              (click)="onDeconnexion()"
+            >
+              Déconnexion
+            </a>
+          </li>
+        </ng-template>
       </ul>
       <form class="d-flex" role="search">
         <input

@@ -23,6 +23,11 @@ export class AuthentificationService {
     });
   }
 
+  logout() {
+    localStorage.removeItem('jwt');
+    this.$jwt.next(null);
+  }
+
   private readJwtLocalStorage() {
     const jwt = localStorage.getItem('jwt');
 

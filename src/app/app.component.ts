@@ -15,4 +15,8 @@ export class AppComponent {
     this.auth.$jwt.subscribe((jwt) => this.jwt = jwt);
   }
 
+  onDeconnexion() {
+    this.auth.logout();
+  }
+
 }

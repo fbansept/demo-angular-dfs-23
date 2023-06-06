@@ -9,11 +9,12 @@ import { Page404Component } from './pages/page404/page404.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EditionArticleComponent } from './pages/edition-article/edition-article.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor } from './services/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
