@@ -12,6 +12,7 @@
           <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>
         <img
+          *ngIf="article.nom_image"
           mat-card-image
           src="http://localhost:3000/{{ article.nom_image }}"
           alt="Photo of a Shiba Inu"
