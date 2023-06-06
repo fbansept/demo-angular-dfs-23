@@ -17,6 +17,19 @@
   </mat-form-field>
 
   <div>
+    <input style="display: none" #inputFile type="file" (change)="onFichierChange($event)"/>
+
+    <button mat-fab (click)="$event.preventDefault(); inputFile.click()">
+      <mat-icon fontIcon="attach_file"></mat-icon>
+    </button>
+
+    <span>
+      {{fichierSelectionne?.name || "Aucun fichier selectionné"}}
+    </span>
+
+  </div>
+
+  <div>
     <button mat-raised-button type="submit" color="primary">
       {{ articleModifie ? "Modifier" : "Ajouter" }}
     </button>

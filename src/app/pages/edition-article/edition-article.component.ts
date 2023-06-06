@@ -16,6 +16,7 @@ export class EditionArticleComponent {
   });
 
   articleModifie?: Article;
+  fichierSelectionne: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,13 +39,25 @@ export class EditionArticleComponent {
     });
   }
 
+  onFichierChange(event: any) {
+    this.fichierSelectionne = event.target.files[0];
+  }
+
   onAjoutArticle() {
     if (this.formulaire.valid) {
       if (this.articleModifie) {
+        const formData: FormData = new FormData();
+
+        formData.append('article', JSON.stringify(this.formulaire.value));
+
+        if (this.fichierSelectionne) {
+          formData.append('fichier', this.fichierSelectionne);
+        }
+
         this.http
           .put(
             'http://localhost:3000/article/' + this.articleModifie.id,
-            this.formulaire.value
+            formData
           )
           .subscribe({
             next: (resultat) => this.router.navigateByUrl('/accueil'),
@@ -60,6 +73,4 @@ export class EditionArticleComponent {
       }
     }
   }
-
-  
 }

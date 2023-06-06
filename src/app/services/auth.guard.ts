@@ -7,8 +7,8 @@ export const authGuard = () => {
   const router = inject(Router);
   const auth = inject(AuthentificationService);
 
-  //transforme l'obeservable $jwt en UrlTree ou en booléen true
-  // si il renvoitg true il laisse passé l'utilisateur
+  //transforme l'observable $jwt en UrlTree ou en booléen true
+  // si il renvoit true il laisse passé l'utilisateur
   // si il renvoit un UrlTree, il effectue une redirection
   return auth.$jwt.pipe(
     tap((jwt) => (jwt == null ? router.navigate(['/connexion']) : true))

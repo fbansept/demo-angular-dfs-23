@@ -6,7 +6,8 @@ form {
     max-width: 400px;
   }
 
-  button, a {
+  button:not(.mdc-fab),
+  a {
     width: 150px;
   }
 }
