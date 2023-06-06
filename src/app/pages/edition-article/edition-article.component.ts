@@ -64,12 +64,18 @@ export class EditionArticleComponent {
             error: (reponse) => alert(reponse.error),
           });
       } else {
-        this.http
-          .post('http://localhost:3000/article', this.formulaire.value)
-          .subscribe({
-            next: (resultat) => this.router.navigateByUrl('/accueil'),
-            error: (reponse) => alert(reponse.error),
-          });
+        const formData: FormData = new FormData();
+
+        formData.append('article', JSON.stringify(this.formulaire.value));
+
+        if (this.fichierSelectionne) {
+          formData.append('fichier', this.fichierSelectionne);
+        }
+
+        this.http.post('http://localhost:3000/article', formData).subscribe({
+          next: (resultat) => this.router.navigateByUrl('/accueil'),
+          error: (reponse) => alert(reponse.error),
+        });
       }
     }
   }
