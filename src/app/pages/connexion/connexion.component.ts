@@ -17,11 +17,11 @@ export class ConnexionComponent {
   constructor(
     private formBuilder: FormBuilder,
     private auth: AuthentificationService
-    ) {}
+  ) {}
 
   onConnexion() {
     if (this.formulaire.valid) {
-       this.auth.login(this.formulaire.value)
+      this.auth.login(this.formulaire.value);
     }
   }
 }
