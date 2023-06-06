@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
@@ -16,12 +17,18 @@ export class ConnexionComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private auth: AuthentificationService
+    private auth: AuthentificationService, private router: Router
   ) {}
 
   onConnexion() {
     if (this.formulaire.valid) {
-      this.auth.login(this.formulaire.value);
+      this.auth.login(this.formulaire.value).subscribe(success => {
+        if(success) {
+          this.router.navigateByUrl('/accueil');
+        } else {
+          alert("Mauvais login / mot de passe")
+        }
+      }); 
     }
   }
 }

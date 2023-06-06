@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Jwt } from '../models/Jwt';
 
 @Injectable({
@@ -13,13 +13,20 @@ export class AuthentificationService {
     this.readJwtLocalStorage();
   }
 
-  login(utilisateur: { email: string; password: string }) {
-    this.http.post('http://localhost:3000/login', utilisateur).subscribe({
-      next: (reponse: any) => {
-        localStorage.setItem('jwt', reponse.token);
-        this.readJwtLocalStorage();
-      },
-      error: (reponse) => console.log(reponse),
+  login(utilisateur: { email: string; password: string }): Observable<boolean> {
+    return new Observable<boolean>((resolve) => {
+      this.http.post('http://localhost:3000/login', utilisateur).subscribe({
+        next: (reponse: any) => {
+          localStorage.setItem('jwt', reponse.token);
+          this.readJwtLocalStorage();
+          resolve.next(true);
+          resolve.complete();
+        },
+        error: (reponse) => {
+          resolve.next(false);
+          resolve.complete();
+        },
+      });
     });
   }
 
