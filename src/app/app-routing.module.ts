@@ -14,7 +14,11 @@ const routes: Routes = [
     component: EditionArticleComponent,
     canActivate: [authGuard],
   },
-  { path: 'modifier-article/:id', component: EditionArticleComponent },
+  {
+    path: 'modifier-article/:id',
+    component: EditionArticleComponent,
+    canActivate: [authGuard],
+  },
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   { path: '**', component: Page404Component },
 ];
