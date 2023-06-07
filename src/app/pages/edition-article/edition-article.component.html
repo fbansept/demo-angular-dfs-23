@@ -16,7 +16,15 @@
     >
   </mat-form-field>
 
-  <app-selecteur-fichier></app-selecteur-fichier>
+  <app-selecteur-fichier
+    texteFichierNonSelectionne="Rien du tout"
+    [sourceMiniature]="
+      articleModifie?.nom_image
+        ? 'http://localhost:3000/' + articleModifie?.nom_image
+        : null
+    "
+    (fichierChange)="onImageSelectionne($event)"
+  ></app-selecteur-fichier>
 
   <div class="mt-5">
     <button mat-raised-button type="submit" color="primary">

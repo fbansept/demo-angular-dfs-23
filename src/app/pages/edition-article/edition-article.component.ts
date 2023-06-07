@@ -44,6 +44,10 @@ export class EditionArticleComponent {
     });
   }
 
+  onImageSelectionne(fichier: File | null) {
+    this.fichierSelectionne = fichier;
+  }
+
   onAjoutArticle() {
     if (this.formulaire.valid) {
       if (this.articleModifie) {
