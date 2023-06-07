@@ -44,17 +44,6 @@ export class EditionArticleComponent {
     });
   }
 
-  onFichierChange(event: any) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.imageSource = e.target.result;
-    };
-
-    reader.readAsDataURL(event.target.files[0]);
-
-    this.fichierSelectionne = event.target.files[0];
-  }
-
   onAjoutArticle() {
     if (this.formulaire.valid) {
       if (this.articleModifie) {

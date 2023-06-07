@@ -1,0 +1,15 @@
+  <div class="selecteur-image">
+    <input #inputFile type="file" (change)="onFichierChange($event)" />
+
+    <button mat-fab (click)="$event.preventDefault(); inputFile.click()">
+      <mat-icon fontIcon="attach_file"></mat-icon>
+    </button>
+
+    <span>
+      {{
+        fichierSelectionne?.name || "Aucun fichier selectionné"
+      }}
+    </span>
+
+    <img [src]="imageSource" />
+  </div>

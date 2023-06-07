@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { MatIconModule } from '@angular/material/icon';
+import { SelecteurFichierComponent } from './components/selecteur-fichier/selecteur-fichier.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
     ConnexionComponent,
     Page404Component,
     EditionArticleComponent,
+    SelecteurFichierComponent,
   ],
   imports: [
     BrowserModule,

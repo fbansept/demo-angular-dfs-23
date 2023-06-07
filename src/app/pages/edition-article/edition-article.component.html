@@ -16,22 +16,7 @@
     >
   </mat-form-field>
 
-  <div class="selecteur-image">
-    <input #inputFile type="file" (change)="onFichierChange($event)" />
-
-    <button mat-fab (click)="$event.preventDefault(); inputFile.click()">
-      <mat-icon fontIcon="attach_file"></mat-icon>
-    </button>
-
-    <span>
-      {{
-        fichierSelectionne?.name ||
-          (articleModifie?.nom_image ? "" : "Aucun fichier selectionné")
-      }}
-    </span>
-
-    <img [src]="imageSource" />
-  </div>
+  <app-selecteur-fichier></app-selecteur-fichier>
 
   <div class="mt-5">
     <button mat-raised-button type="submit" color="primary">
